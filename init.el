@@ -6,6 +6,7 @@
 	     '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
 
+(set-frame-parameter nil 'undecorated t)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (tool-bar-mode 0)
 (menu-bar-mode 0)
