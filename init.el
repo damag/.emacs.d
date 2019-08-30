@@ -177,6 +177,7 @@
 (use-package meson-mode)
 (add-hook 'meson-mode-hook 'company-mode)
 
+(use-package zig-mode)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -185,7 +186,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (org flycheck-irony flycheck-golangci-lint lsp-clangd lsp-css lsp-go lsp-html lsp-python lsp-typescript company-lsp go-eldoc company-go omnisharp go-mode dart-mode elpy company-tern web-mode cmake-mode disaster which-key json-mode ein pkgbuild-mode meson-mode irony-eldoc company-irony company http magit rg))))
+    (zig-mode org flycheck-irony flycheck-golangci-lint lsp-clangd lsp-css lsp-go lsp-html lsp-python lsp-typescript company-lsp go-eldoc company-go omnisharp go-mode dart-mode elpy company-tern web-mode cmake-mode disaster which-key json-mode ein pkgbuild-mode meson-mode irony-eldoc company-irony company http magit rg))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
