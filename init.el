@@ -6,6 +6,8 @@
 	     '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
 
+(eval-when-compile (require 'use-package))
+
 (set-frame-parameter nil 'undecorated t)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (tool-bar-mode 0)
@@ -29,6 +31,8 @@
 (global-set-key (kbd "C-c C-f") 'ff-find-other-file)
 (global-set-key (kbd "C-c m") 'man-follow)
 (global-set-key (kbd "C-c c") 'recompile)
+
+(use-package magit)
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
 
@@ -62,9 +66,21 @@
     (interactive)
     (ido-initiate-auto-merge (current-buffer))))
 
-(which-key-mode)
+(require 'use-package-ensure)
+(setq use-package-always-ensure t)
+
+(use-package which-key
+  :config
+  (which-key-mode))
+
+(use-package auto-package-update
+  :config
+  (setq auto-package-update-delete-old-versions t)
+  (setq auto-package-update-hide-results t)
+  (auto-package-update-maybe))
 
 ;; Rtags
+(use-package rtags)
 (require 'rtags)
 (rtags-enable-standard-keybindings)
 (define-key c-mode-base-map (kbd "M-.")
@@ -77,6 +93,7 @@
   (function rtags-location-stack-forward))
 
 ;; Irony
+(use-package company-irony)
 (add-hook 'after-init-hook 'global-company-mode)
 ;; (eval-after-load 'company
 ;;   '(add-to-list 'company-backends 'company-irony))
@@ -105,21 +122,25 @@
 (setq company-idle-delay 0)
 
 ;; Disaster
+(use-package disaster)
 (require 'disaster)
 (define-key c-mode-base-map (kbd "C-c d") 'disaster)
 
 
 ;; pkgbuild
+(use-package pkgbuild-mode)
 (autoload 'pkgbuild-mode "pkgbuild-mode.el" "PKGBUILD mode." t)
 (setq auto-mode-alist (append '(("/PKGBUILD$" . pkgbuild-mode))
 			      auto-mode-alist))
 
 ;; Python
+(use-package elpy)
 (elpy-enable)
 (setq python-shell-interpreter "ipython"
       python-shell-interpreter-args "-i --simple-prompt")
 
 ;; Web
+(use-package web-mode)
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (defun my-web-mode-hook ()
@@ -129,9 +150,11 @@
 (add-hook 'web-mode-hook 'my-web-mode-hook)
 
 ;; Dart
+(use-package dart-mode)
 (setq dart-enable-analysis-server t)
 
 ;; Go
+(use-package go-eldoc)
 (require 'go-eldoc)
 (add-hook 'go-mode-hook 'go-eldoc-setup)
 (add-hook 'go-mode-hook (lambda ()
@@ -147,9 +170,11 @@
 
 
 ;; Language Server Protocol
-(push 'company-lsp company-backends)
+;; (use-package company-lsp)
+;; (push 'company-lsp company-backends)
 
 ;; Meson
+(use-package meson-mode)
 (add-hook 'meson-mode-hook 'company-mode)
 
 
